@@ -1,29 +1,25 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 
 namespace SensorValidate
 {
     public class SensorValidator
     {
-        public static bool _give_me_a_good_name(double value, double nextValue, double maxDelta) {
-            if(nextValue - value > maxDelta) {
-                return false;
-            }
-            return true;
+        public static bool CheckValueJumps(double value, double nextValue, double maxDelta) {
+            return nextValue - value > maxDelta ? false : true;
         }
         public static bool validateSOCreadings(List<Double> values) {
-            int lastButOneIndex = values.Count - 1;
-            for(int i = 0; i < lastButOneIndex; i++) {
-                if(!_give_me_a_good_name(values[i], values[i + 1], 0.05)) {
-                    return false;
-                }
-            }
-            return true;
+            return validateReadings(values,0.05);
         }
         public static bool validateCurrentreadings(List<Double> values) {
-            int lastButOneIndex = values.Count - 1;
-            for(int i = 0; i < lastButOneIndex; i++) {
-                if(!_give_me_a_good_name(values[i], values[i + 1], 0.1)) {
+            return validateReadings(values,0.1);
+        }
+        public static bool validateReadings(List<Double> values,Double maxDelta)
+        {
+            for (int i = 0; i < values.Count - 1; i++)
+            {
+                if (!CheckValueJumps(values[i], values[i + 1], maxDelta))
+                {
                     return false;
                 }
             }
@@ -31,3 +27,4 @@ namespace SensorValidate
         }
     }
 }
+
