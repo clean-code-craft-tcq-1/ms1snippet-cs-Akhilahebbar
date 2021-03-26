@@ -9,7 +9,7 @@ namespace SensorValidate
             return nextValue - value > maxDelta ? false : true;
         }
         public static bool ValidateSOCreadings(List<Double> values) {
-            return validateReadings(values,0.05);
+            return ValidateReadings(values,0.05);
         }
         public static bool ValidateCurrentreadings(List<Double> values) {
             return ValidateReadings(values,0.1);
